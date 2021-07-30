@@ -872,7 +872,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_NAME":"nuuapp4","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"nuuapp4","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -2059,7 +2059,7 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 103:
+/***/ 104:
 /*!****************************************************************************************************************************!*\
   !*** C:/Users/甘/Documents/HBuilderProjects/nuuapp4/uni_modules/uni-swipe-action/components/uni-swipe-action-item/mpwxs.js ***!
   \****************************************************************************************************************************/
@@ -2067,7 +2067,7 @@ function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _isPC = __webpack_require__(/*! ./isPC */ 104);var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _isPC = __webpack_require__(/*! ./isPC */ 105);var _default =
 {
   data: function data() {
     return {
@@ -2202,7 +2202,7 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 104:
+/***/ 105:
 /*!***************************************************************************************************************************!*\
   !*** C:/Users/甘/Documents/HBuilderProjects/nuuapp4/uni_modules/uni-swipe-action/components/uni-swipe-action-item/isPC.js ***!
   \***************************************************************************************************************************/
@@ -3379,6 +3379,13 @@ var index = {
 
 
   getters: {
+    checkedCount: function checkedCount(state) {
+      var count = 0;
+      state.cart.forEach(function (x) {
+        count += x.goods_count;
+      });
+      return count;
+    },
     isFullCheck: function isFullCheck(state) {
       var length1 = state.cart.length;
       var length2 = state.cart.filter(function (x) {return x.goods_state;}).length;
@@ -3404,6 +3411,10 @@ var index = {
     } },
 
   mutations: {
+    updateAllGoodsState: function updateAllGoodsState(state, newState) {
+      state.cart.forEach(function (x) {return x.goods_state = newState;});
+      uni.setStorageSync('cart', state.cart);
+    },
     updateGoodsState: function updateGoodsState(state, goods) {
       var findResult =
       state.cart.find(function (x) {return x.goods_id === goods.goods_id;});
@@ -3529,38 +3540,6 @@ var index = {
 
 
 var $http = new Request();exports.$http = $http;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
-/***/ 167:
-/*!****************************************************************************!*\
-  !*** C:/Users/甘/Documents/HBuilderProjects/nuuapp4/mixins/tabbar-badge.js ***!
-  \****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _vuex = __webpack_require__(/*! vuex */ 12);function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
-
-{
-  computed: _objectSpread({},
-  (0, _vuex.mapGetters)('m_cart', ['total'])),
-
-  watch: {
-    total: function total() {
-      this.setBadge();
-    } },
-  onShow: function onShow() {
-    this.setBadge();
-  },
-  methods: {
-    setBadge: function setBadge() {
-      uni.setTabBarBadge({
-        index: 2,
-        text: this.total + '' });
-
-    } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
@@ -9092,7 +9071,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_NAME":"nuuapp4","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_NAME":"nuuapp4","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -9113,14 +9092,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_NAME":"nuuapp4","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"nuuapp4","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_NAME":"nuuapp4","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"nuuapp4","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -9206,7 +9185,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_NAME":"nuuapp4","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"nuuapp4","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -10405,6 +10384,38 @@ if (hadRuntime) {
 
 /***/ }),
 
+/***/ 25:
+/*!****************************************************************************!*\
+  !*** C:/Users/甘/Documents/HBuilderProjects/nuuapp4/mixins/tabbar-badge.js ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _vuex = __webpack_require__(/*! vuex */ 12);function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
+
+{
+  computed: _objectSpread({},
+  (0, _vuex.mapGetters)('m_cart', ['total'])),
+
+  watch: {
+    total: function total() {
+      this.setBadge();
+    } },
+  onShow: function onShow() {
+    this.setBadge();
+  },
+  methods: {
+    setBadge: function setBadge() {
+      uni.setTabBarBadge({
+        index: 2,
+        text: this.total + '' });
+
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
 /***/ 3:
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -10447,7 +10458,7 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 90:
+/***/ 91:
 /*!*********************************************************************************************************!*\
   !*** C:/Users/甘/Documents/HBuilderProjects/nuuapp4/uni_modules/uni-icons/components/uni-icons/icons.js ***!
   \*********************************************************************************************************/

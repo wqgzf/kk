@@ -7,6 +7,13 @@ export default{
 		
 	},
 	getters:{
+		checkedCount(state){
+			var count=0;
+			state.cart.forEach(x=>{
+				count+=x.goods_count
+			})
+			return count
+		},
 		isFullCheck(state){
 			var length1=state.cart.length;
 			var length2=state.cart.filter(x=>x.goods_state).length;
@@ -32,6 +39,10 @@ export default{
 			}
 	},
 	mutations:{
+		updateAllGoodsState(state,newState){
+			state.cart.forEach(x=>x.goods_state=newState)
+			uni.setStorageSync('cart',state.cart)
+		},
 		updateGoodsState(state,goods){
 			const findResult=
 			state.cart.find(x=>x.goods_id===goods.goods_id)

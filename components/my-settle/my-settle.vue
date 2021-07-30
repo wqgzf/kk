@@ -13,7 +13,7 @@
 </template>
 
 <script>
-	import {mapGetters} from 'vuex'
+	import {mapGetters,mapMutations} from 'vuex'
 	
 	export default {
 		name:"my-settle",
@@ -22,8 +22,17 @@
 				
 			};
 		},
+		methods:{
+			...mapMutations('m_cart',['updateAllGoodsState']),
+			changeAllState(){
+				this.updateAllGoodsState(!this.isFullCheck)
+			}
+		},
 		computed:{
-			...mapGetters('m_cart',['isFullCheck','checkedGoodsAmount','total'])
+			...mapGetters('m_cart',['checkedCount','isFullCheck','checkedGoodsAmount','total']),
+			isFullCheck(){
+				return this.total===this.checkedCount
+			}
 			
 		}
 	}

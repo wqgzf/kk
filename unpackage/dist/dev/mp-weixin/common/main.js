@@ -18,7 +18,9 @@ var _requestMiniprogram = __webpack_require__(/*! @escook/request-miniprogram */
 //从网络请求包中引入$http请求对象
 uni.$http = _requestMiniprogram.$http;
 //因为在其他的页面或组件中也要使用，所以要将$http对象挂载到全局对象下，在uni-app中，uni是全局对象
+
 _requestMiniprogram.$http.baseUrl = 'https://api-hmugo-web.itheima.net';
+// $http.baseUrl = '/api'
 //配置网络请求基础地址，因为uni.$http为$http的引用，所以可以直接修改$http对象下的属性
 _requestMiniprogram.$http.beforeRequest = function () {
   //配置发起网络请求前的拦截功能
