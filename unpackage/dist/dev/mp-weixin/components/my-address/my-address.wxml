@@ -1,0 +1,1 @@
+<view><view class="address-choose-box"><button class="btnChooseAddress" type="primary" size="mini" data-event-opts="{{[['tap',[['chooseAddress',['$event']]]]]}}" bindtap="__e">请选择收货地址+</button></view></view>
